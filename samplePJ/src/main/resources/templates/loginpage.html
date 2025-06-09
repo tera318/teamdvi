@@ -1,27 +1,198 @@
 <!DOCTYPE html>
 
-<html xmlns th = "http://www.thymeleaf.org">
+<body xmlns th = "http://www.thymeleaf.org">
 
 <head>
 
 <meta charset="UTF-8">
 
 <title>ログイン画面</title>
+<link rel="stylesheet" href="teamdiv.css">
 
 </head>
 
-<body>
+</body>
 	
-<p id = login th:text ="#{loginpage}">ログイン</P>
+	<form action="#" th:action="@{/}" th:object = "${loginPage}" method="post">
+		
+	<!--ログイン画面-->
 	
-	<p id = UserID>UserID</p>
-	<input></input>
-	<p id = PassWord>PassWord</p>
-	<input></input>
+<h1 id = login >ログイン</h1>
 	
+	<!--IDとパスワードを入力して入力された内容が合っていればTop画面へ遷移
+		間違っていればバリデーションを出す
+		データはSQLから取得する-->
+	<table>
+		<tr>	
+			<td>UserID</td>
+			
+		<td><input type="text" th:field = "*{id}" /> </td>
+		<td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">IDエラー</td>
+		</tr>
+		
+		
+		<tr>	
+			<td>PassWord</td>
+			
+		<td><input type="text" th:field = "*{pass}"/> </td>
+		<td th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}">PWエラー</td>
+		</tr>
+	
+	
+	<!--ログイン失敗した時のリダイレクト処理を入れる-->
+	<tr>
+	<td><button type="submit">登録</button></td>
+	</tr>
+	<!--新規登録画面へ遷移-->
+	<tr>
+	<td><a href="http://localhost:8080/sinki">新規会員登録はこちら</a></td>
+	</tr>
+
+	</table>
+	</form>
+	
+			
+	<!--新規登録画面-->
+	
+	<h1>新規会員登録</h1>
+	
+	<!--入力情報が問題なければSQLにデータを登録する-->
+	<ul>
+		<li>UserID<input class = "ID"></input></li>
+		<li>MailAddress<input class = "ID"><input></li>
+		<li>PassWord<input class = "ID"></input></li>
+	</ul>
+
 	<button id="Button">登録</button>
 	
-	<p>新規会員登録はこちら</p>
+	<!--ログイン画面へ遷移-->
+	<p><a href="http://localhost:8080/login">ログイン画面へ</a></p>
+	
+	
+	
+	<!--Top画面-->
+	
+	<!--登録に進むボタンで入力画面に遷移-->
+	<p>自己紹介登録<button>登録に進む</button></p>
+
+	<p>
+		新しく自己紹介を作ります。
+		あなたをより知ってもらうために、
+		趣味や一言を工夫しましょう。
+		最高の自己紹介を完成させて、よりあなたを
+		知ってもらえるチャンスにしましょう。
+	</p>
+	
+	<!--一覧を編集するボタンで一覧画面へ遷移-->
+	<p>自己紹介登録者一覧<button>一覧を編集する</button></p>
+
+	<p>
+		登録している人を確認します。
+		登録している人の自己紹介記事をみてみましょう。
+	</p>
+	
+	
+	
+	<!--入力画面-->
+	
+	<h1>自己紹介内容を記入して下さい</h1>
+	
+	
+	<p>名前<input name = "yourname"></p>    <!--名前　必須-->
+	<p>フリガナ<input name = "kana"></p>		 <!--フリガナ　必須-->
+	<p>性別<input type = "radio" name = "gender"></p>		 <!--性別-->
+	<p>趣味<input type = "radio" name = "hobby"></p>		 <!--趣味　必須-->
+	<p>一言<input name = "pr"></p>			 <!--一言-->
+	
+	
+	<button>戻る</button> <button>次へ</button>
+	
+	
+	
+	<!--確認画面-->
+	
+	<h1>自己紹介登録確認</h1>
+	
+	<!--入力画面で入力された情報を右に表示-->
+	<p>名前</p>
+	<p>フリガナ</p>
+	<p>性別</p>
+	<p>趣味</p>
+	<p>一言</p>
+	
+	<button>戻る</button> <button>次へ</button>
+	
+	
+	
+	<!--登録完了画面-->
+	
+	
+	<h1>自己紹介の登録が完了しました！</h1>
+	
+	
+	<p>
+		下記内容の自己紹介の登録が完了しました！
+	</p>
+		
+	<!--入力画面で入力された情報を右に表示-->
+	
+	<p>管理番号:</p>
+	<p>名前:</p>
+	<p>フリガナ:</p>
+	<p>性別:</p>
+	<p>趣味:</p>
+	<p>一言:</p>
+	
+	<p>自己紹介の内容を変更するには登録内容一覧画面から編集をして頂くか、管理者へお問い合わせください。</p>
+	
+	
+	<p><a href="http://localhost:8080/homepage">TOPへ戻る</a></p>
+		
+	
+		
+	<!--一覧画面-->
+
+	<h1>自己紹介登録者一覧</h1>
+	
+	
+	<!--登録されたIDと名前をそれぞれ記載-->
+	
+		<div class = "date">
+			<div class = "kanriID">
+				ID
+			</div>
+			
+			<div class = "kanriName">
+				名前
+			</div>
+		</div>
+		
+	
+	<!--詳細画面-->
+	
+	<h1>自己紹介</h1>
+	
+	
+	<!--入力画面で入力された情報を右に表示-->
+	<p>管理番号</p>
+	<p>名前</p>
+	<p>フリガナ</p>
+	<p>性別</p>
+	<p>趣味</p>
+	<p>一言</p>
+	
+	<!--戻る＝前のページへ、編集＝入力画面へ、削除＝削除ウィンドウを表示-->
+	<button>戻る</button> <button>編集</button> <button>削除</button>
+	
+
+	
+	<!--削除ボタンウィンドウ-->
+	
+	<!--ページ遷移はせずにそのまま表示-->
+	<p>ID:のデータを削除してもよろしいですか？</p>
+	
+	<button>Cansel</button> <button>OK</button>
+	
 	
 </body>
 
