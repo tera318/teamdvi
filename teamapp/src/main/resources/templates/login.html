@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>ログイン画面</title>
@@ -11,13 +10,13 @@
 
 	<p>UserID<input type="text"></p>
 
-	<p>PassWord<input type="text"></p>
+	<p>PassWord<input type="password"></p>
 
 	<!--formに変更-->
-	<p><a href="/"><button type="submit">登録</button></a></p>
+	<p><a href="/home"><button type="submit">登録</button></a></p>
 
 
-	<p><a href="/register">新規会員登録はこちら</a></p>
+	<p><a th:href="@{/users}">新規会員登録はこちら</a></p>
 </body>
 
 </html>

@@ -1,8 +1,11 @@
 package com.example.zikosyoukaiWeb;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,67 +17,101 @@ public class ToppageController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	IntroductionsService introductionsService;
+
 	/* Top画面 */
-	@GetMapping("/")
-	public ModelAndView toppageG() {
+	@GetMapping("/home")
+	public String toppageG() {
 		ModelAndView topmodel = new ModelAndView();
 		topmodel.setViewName("toppage");
-		return topmodel;
+		return "redirect://home/login";
 	}
 
 	/* ログイン画面 */
-	@GetMapping("/login")
-	public ModelAndView loginpaeG() {
-		ModelAndView loginmodel = new ModelAndView();
+	@GetMapping("/home/login")
+	public ModelAndView loginpaeG(ModelAndView loginmodel) {
 		loginmodel.setViewName("login");
 		return loginmodel;
 	}
 
+	@PostMapping("/home/login")
+	public String loginpaeP(@ModelAttribute @Valid UserForm userform, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "login";
+		}
+
+		userService.insert(userform);
+
+		return "/redirect:/home";
+	}
+
 	/* 新規登録 */
-	@GetMapping("/register")
+	@GetMapping("/users")
 	public ModelAndView registerG(ModelAndView registermodel) {
 		registermodel.setViewName("register");
 		registermodel.addObject("userform", new UserForm());
 		return registermodel;
 	}
 
-	@PostMapping("/create")
-	public String registerP(@ModelAttribute UserForm userform, Model model) {
+	@PostMapping("/users")
+	@Valid
+	public String registerP(@ModelAttribute @Valid UserForm userform, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			return "register";
+		}
+
+		//		userService.selectByExample(userform);
+
+		// まずはユーザーの存在チェックをする(SELECT)
+		// いなかったらPWのハッシュ化
+		// クリエイトでハッシュ化させたPWをDBに登録
+		// hashに渡す→hashで処理をする→hashから受け取って処理を続行する。
 
 		userService.insert(userform);
-		return "toppage";
+		return "redirect:/home/login";
 	}
 
 	/* 入力画面 */
-	@GetMapping("/input")
+	@GetMapping("/introductions")
 	public ModelAndView inputG() {
 		ModelAndView inputmodel = new ModelAndView();
 		inputmodel.setViewName("input");
 		return inputmodel;
 	}
 
-	//	@PostMapping("/input")
-	//	public String inputP() {
-	//		return "input";
-	//	}
+	@PostMapping("/introductions")
+	public String inputP(@ModelAttribute @Valid IntroductionsForm introductionsform, BindingResult result,
+			Model model) {
+
+		if (result.hasErrors()) {
+			return "input";
+		}
+
+		introductionsService.insert(introductionsform);
+
+		return "redirect:/introductions/confirm";
+	}
 
 	/* 確認画面 */
-	@GetMapping("/confirm")
+	@GetMapping("/introductions/confirm")
 	public ModelAndView confirmG() {
 		ModelAndView confirmmodel = new ModelAndView();
 		confirmmodel.setViewName("confirm");
 		return confirmmodel;
 	}
 
-	//	@PostMapping("/confirm")
-	//	public ModelAndView confirmP() {
-	//		ModelAndView confirmmodel = new ModelAndView();
-	//		confirmmodel.setViewName("confirm");
-	//		return confirmmodel;
-	//	}
+	@PostMapping("/introductions/confirm")
+	public ModelAndView confirmP() {
+		ModelAndView confirmmodel = new ModelAndView();
+		confirmmodel.setViewName("registerfinish");
+		return confirmmodel;
+	}
 
 	/* 登録完了画面 */
-	@GetMapping("/registerfinish")
+	@GetMapping("/introductions/finish")
 	public ModelAndView registerfinishG() {
 		ModelAndView registerfinishmodel = new ModelAndView();
 		registerfinishmodel.setViewName("registerfinish");
@@ -82,30 +119,30 @@ public class ToppageController {
 	}
 
 	/* 一覧画面 */
-	@GetMapping("/list")
+	@GetMapping("/introductions/list")
 	public ModelAndView listG() {
 		ModelAndView listmodel = new ModelAndView();
 		listmodel.setViewName("list");
 		return listmodel;
 	}
 
-	//	@PostMapping("/list")
-	//	public String listP() {
-	//		return "list";
-	//	}
+	@PostMapping("/introductions/list")
+	public String listP() {
+		return "list";
+	}
 
 	/* 詳細画面 */
-	@GetMapping("/detail")
+	@GetMapping("/introductions/detail")
 	public ModelAndView detailG() {
 		ModelAndView detailmodel = new ModelAndView();
 		detailmodel.setViewName("detail");
 		return detailmodel;
 	}
 
-	//	@PostMapping("/detail")
-	//	public String detailP() {
-	//		return "detail";
-	//	}
+	@PostMapping("/introductions/detail")
+	public String detailP() {
+		return "detail";
+	}
 
 	/*必要な処理
 	 * 

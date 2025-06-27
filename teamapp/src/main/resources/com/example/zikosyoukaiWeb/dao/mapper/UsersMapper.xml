@@ -283,4 +283,5 @@
       team_name = #{team_name,jdbcType=VARCHAR}
     where user_id = #{user_id,jdbcType=VARCHAR}
   </update>
+  
 </mapper>

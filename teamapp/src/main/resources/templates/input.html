@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>入力画面</title>
 </head>
 
 <body>
 
 	<h2>自己紹介の内容を記入して下さい</h2>
 
+	<form action="@{/introductions/get}" th:object="${introductionsform}" method="post">
 	<table>
 		<tr>
 			<th>名前</th>
 			<td>必須</td>
-			<td><input type="text"></td>
+			<td><input type="text" th:field="*{name}"></td>
 		</tr>
 
 		<tr>
 			<th>フリガナ</th>
 			<td>必須</td>
-			<td><input type="text"></td>
+			<td><input type="text" th:field="*{kana}"></td>
 		</tr>
 
 
@@ -28,12 +29,12 @@
 			<th>性別</th>
 			<td></td>
 			<td>
-				<input type="radio" id="gendr1" name="gendr">
-				<label for="gendr1">男性</label>
+				<input type="radio" id="gender1" name="gender">
+				<label for="gender1" th:field="*{gender}">男性</label>
 			</td>
 			<td>
-				<input type="radio" id="gendr2" name="gendr">
-				<label for="gendr2">女性</label>
+				<input type="radio" id="gender2" name="gender">
+				<label for="gender2" th:field="*{gender}">女性</label>
 			</td>
 		</tr>
 
@@ -43,32 +44,32 @@
 			<td>必須</td>
 			<td>
 				<input type="checkbox" id="1" name="1">
-				<label for="1">趣味1</label>
+				<label for="1" th:field="*{hobyy}">趣味1</label>
 			</td>
 
 			<td>
 				<input type="checkbox" id="2" name="2">
-				<label for="2">趣味2</label>
+				<label for="2" th:field="*{hobyy}">趣味2</label>
 			</td>
 
 			<td>
 				<input type="checkbox" id="3" name="3">
-				<label for="3">趣味3</label>
+				<label for="3" th:field="*{hobyy}">趣味3</label>
 			</td>
 
 			<td>
 				<input type="checkbox" id="4" name="4">
-				<label for="4">趣味4</label>
+				<label for="4" th:field="*{hobyy}">趣味4</label>
 			</td>
 
 			<td>
 				<input type="checkbox" id="5" name="5">
-				<label for="5">趣味5</label>
+				<label for="5" th:field="*{hobyy}">趣味5</label>
 			</td>
 
 			<td>
 				<input type="checkbox" id="6" name="6">
-				<label for="6">趣味6</label>
+				<label for="6" th:field="*{hobyy}">趣味6</label>
 			</td>
 
 		</tr>
@@ -76,17 +77,17 @@
 		<tr>
 			<th>一言</th>
 			<td></td>
-			<td><input type="text"></td>
+			<td><input type="text"  th:field="*{word}"></td>
 		</tr>
 
 
 	</table>
-
-	<p><a href="/"><button type="submit">戻る</button></a>
-		<a href="/confirm"><button type="submit">次へ</button></a>
+	</form>
+	<p><a href="/home"><button type="submit">戻る</button></a>
+		<a href="/introductions/confirm"><button type="submit">次へ</button></a>
 	</p>
 
 
 </body>
 
-</html>
+</htm>

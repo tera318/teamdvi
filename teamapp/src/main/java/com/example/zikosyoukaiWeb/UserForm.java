@@ -13,6 +13,7 @@ public class UserForm {
 	@Size(min = 3, max = 10)
 	private String id;
 
+	@NotNull
 	@Email
 	private String email;
 
@@ -21,6 +22,4 @@ public class UserForm {
 	private String password;
 
 	private Integer created_at;
-
-	private String team_name;
 }

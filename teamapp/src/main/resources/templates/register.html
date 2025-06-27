@@ -4,34 +4,31 @@
 <head>
 	<meta charset="UTF-8">
 	<title>新規会員登録画面</title>
+
 </head>
 
 <body>
-	<h1>新規会員登録</h1>
+	<h1>新規登録</h1>
 
-	<form action="@{/register}" th:object="${userform}" method="post">
+	<!-- 各フィールドのエラーメッセージは個別に表示 -->
 
-		<p>
-			UserID
-			<input type="text" pattern="^[0-9a-zA-Z]+$" th:field="*{id}" />
-		</p>
-
-		<p>
-			MailAddress
-			<input type="text" th:field="*{email}" />
-		</p>
-
-		<p>
-			PassWord
-			<input type="text" pattern="^[0-9a-zA-Z]+$" th:field="*{password}" />
-		</p>
-
-		<!--formに変更-->
-		<p><a href="/"><button type="submit">登録</button></a></p>
-
-		<p><a href="/login">ログイン画面へ</a></p>
-
+	<form th:action="@{/users}" th:object="${userform}" method="post">
+	    <div>
+	        <label for="id">ユーザーID:</label>
+	        <input type="text" id="id" th:field="*{id}" />
+	    </div>
+	    <div>
+	        <label for="email">メールアドレス:</label>
+	        <input type="email" id="email" th:field="*{email}" />
+	    </div>
+	    <div>
+	        <label for="password">パスワード:</label>
+	        <input type="password" id="password" th:field="*{password}" />
+	    </div>
+	    
+	    <button type="submit">登録</button>
 	</form>
+	<a th:href="@{/home/login}">ログイン画面へ</a>
 
 </body>
 
