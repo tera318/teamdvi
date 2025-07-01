@@ -11,17 +11,34 @@
 	
 	<h1>自己紹介登録確認</h1>
 	
-	<form>
-	<ul style="list-style-type: none;">
-		<li>名前</li>
-		<li>フリガナ</li>
-		<li>性別</li>
-		<li>趣味</li>
-		<li>一言</li>
-	</ul>
-	</form>
-	<p><a href="/input"><button type="submit">戻る</button></a>
-		<a href="/registerfinish"><button type="submit">完了</button></a>
+	<form th:action="@{/introductions/confirm}" th:object="${introductionsform}" method="post">
+		<table>
+			<tr>
+			<td>名前</td>
+			<td><input type="hidden" th:field="*{name}"></td>
+			</tr>
+			<tr>
+			<td>フリガナ</td>
+			<td><input type="hidden" th:field="*{kana}"></td>
+			</tr>
+<!--			<tr>-->
+<!--				<td>性別</td>-->
+<!--				<td><input type="hidden" th:field="*{gender}"></td>-->
+<!--				</tr>-->
+<!--			<tr>-->
+<!--				<td>趣味</td>-->
+<!--				<td><input type="hidden" th:field="*{hobby}"></td>-->
+<!--			</tr>-->
+			
+			<tr>
+				<td>一言</td>
+				<td><input type="hidden" th:field="*{word}"></td>
+			</tr>
+
+		</table>
+			</form>
+	<p><a th:href="@{/introductions}"><button type="submit">戻る</button></a>
+		<a th:href="@{/introductions/finish}"><button type="submit">完了</button></a>
 	</p>
 
 </body>

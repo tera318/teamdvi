@@ -17,10 +17,10 @@ public class IntroductionsForm {
 	@NotNull
 	private String name;
 
-	private String gender;
-
 	@NotNull
 	private String kana;
+
+	private String gender;
 
 	private String hobby;
 

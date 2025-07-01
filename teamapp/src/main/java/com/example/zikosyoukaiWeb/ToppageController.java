@@ -11,40 +11,45 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.zikosyoukaiWeb.dao.entity.Users;
+
 @Controller
 public class ToppageController {
 
 	@Autowired
 	UserService userService;
 
-	@Autowired
-	IntroductionsService introductionsService;
-
 	/* Top画面 */
 	@GetMapping("/home")
-	public String toppageG() {
-		ModelAndView topmodel = new ModelAndView();
+	public ModelAndView toppageG(ModelAndView topmodel) {
 		topmodel.setViewName("toppage");
-		return "redirect://home/login";
+		return topmodel;
 	}
 
 	/* ログイン画面 */
 	@GetMapping("/home/login")
 	public ModelAndView loginpaeG(ModelAndView loginmodel) {
 		loginmodel.setViewName("login");
+		loginmodel.addObject("userform", new UserForm());
 		return loginmodel;
 	}
 
 	@PostMapping("/home/login")
-	public String loginpaeP(@ModelAttribute @Valid UserForm userform, BindingResult result, Model model) {
+	public String loginpaeP(@ModelAttribute @Valid Users users, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
 			return "login";
 		}
 
-		userService.insert(userform);
+		if (userService.password_check(users)) {
+			System.out.println("ログイン成功");
+		} else {
+			System.err.println("ログイン失敗");
+			return "loginfailed";
+		}
 
-		return "/redirect:/home";
+		return "redirect:/home";
+
 	}
 
 	/* 新規登録 */
@@ -56,92 +61,14 @@ public class ToppageController {
 	}
 
 	@PostMapping("/users")
-	@Valid
 	public String registerP(@ModelAttribute @Valid UserForm userform, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
 			return "register";
 		}
 
-		//		userService.selectByExample(userform);
-
-		// まずはユーザーの存在チェックをする(SELECT)
-		// いなかったらPWのハッシュ化
-		// クリエイトでハッシュ化させたPWをDBに登録
-		// hashに渡す→hashで処理をする→hashから受け取って処理を続行する。
-
 		userService.insert(userform);
 		return "redirect:/home/login";
-	}
-
-	/* 入力画面 */
-	@GetMapping("/introductions")
-	public ModelAndView inputG() {
-		ModelAndView inputmodel = new ModelAndView();
-		inputmodel.setViewName("input");
-		return inputmodel;
-	}
-
-	@PostMapping("/introductions")
-	public String inputP(@ModelAttribute @Valid IntroductionsForm introductionsform, BindingResult result,
-			Model model) {
-
-		if (result.hasErrors()) {
-			return "input";
-		}
-
-		introductionsService.insert(introductionsform);
-
-		return "redirect:/introductions/confirm";
-	}
-
-	/* 確認画面 */
-	@GetMapping("/introductions/confirm")
-	public ModelAndView confirmG() {
-		ModelAndView confirmmodel = new ModelAndView();
-		confirmmodel.setViewName("confirm");
-		return confirmmodel;
-	}
-
-	@PostMapping("/introductions/confirm")
-	public ModelAndView confirmP() {
-		ModelAndView confirmmodel = new ModelAndView();
-		confirmmodel.setViewName("registerfinish");
-		return confirmmodel;
-	}
-
-	/* 登録完了画面 */
-	@GetMapping("/introductions/finish")
-	public ModelAndView registerfinishG() {
-		ModelAndView registerfinishmodel = new ModelAndView();
-		registerfinishmodel.setViewName("registerfinish");
-		return registerfinishmodel;
-	}
-
-	/* 一覧画面 */
-	@GetMapping("/introductions/list")
-	public ModelAndView listG() {
-		ModelAndView listmodel = new ModelAndView();
-		listmodel.setViewName("list");
-		return listmodel;
-	}
-
-	@PostMapping("/introductions/list")
-	public String listP() {
-		return "list";
-	}
-
-	/* 詳細画面 */
-	@GetMapping("/introductions/detail")
-	public ModelAndView detailG() {
-		ModelAndView detailmodel = new ModelAndView();
-		detailmodel.setViewName("detail");
-		return detailmodel;
-	}
-
-	@PostMapping("/introductions/detail")
-	public String detailP() {
-		return "detail";
 	}
 
 	/*必要な処理
