@@ -9,46 +9,25 @@
 <body>
 
 	<h1>自己紹介</h1>
-
+<form th:action="@{/introductions/detail}" th:object="${introductions}" method="post">
 	<table>
-		<tr>
-			<th>管理番号</th>
-			<td></td>
+<!--		<tr th:each="user : ${introductions}">-->
+		<tr th:text="*{introductions_id}">管理番号</tr>
+		<tr th:text="*{name}">名前</tr>
+		<tr th:text="*{kana}">フリガナ</tr>
+		<tr th:text="*{gender}">性別</tr>
+		<tr th:text="*{hobby}">趣味</tr>
+		<tr th:text="*{word}">一言</tr>
 		</tr>
-
-		<tr>
-			<th>名前</th>
-			<td></td>
-		</tr>
-
-		<tr>
-			<th>フリガナ<th>
-			<td></td>
-		</tr>
-
-		<tr>
-			<th>性別</th>
-			<td></td>
-		</tr>
-
-		<tr>
-			<th>趣味</th>
-			<td></td>
-		</tr>
-
-		<tr>
-			<th>一言</th>
-			<td></td>
-		</tr>
-
+		
 	</table>
 
 	<p>
-		<a href="/introductions/list"><button type="submit">戻る</button></a>
-		<a href="/introductions/detail"><button type="submit">編集</button></a>
-		<button type="submit">削除</button>
+		<a th:href="/introductions/list"><button type="button">戻る</button></a>
+		<button type="submit">編集</button>
+		<button type="button">削除</button>
 	</p>
-
+</form>
 </body>
 
 </html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>登録完了画面</title>
 </head>
 
 <body>
@@ -11,17 +12,44 @@
 	<h1>自己紹介の登録が完了しました！</h1>
 	
 	<h2>下記内容の自己紹介の登録が完了しました！</h2>
-	
-	<p>管理番号：</p>
-	<p>名前：</p>
-	<p>フリガナ：</p>
-	<p>性別：</p>
-	<p>趣味：</p>
-	<p>一言：</p>
-	<p>自己紹介の内容を変更するには登録内容一覧画面から編集をして頂くか、管理者へお問い合わせください。</p>
-	
-	<p><a th:href="@{/home}">TOPへ戻る</a></p>
+	<form th:action="@{/introductions/finish}" th:object="${introductionsform}" method="post">
 		
+	<div>
+		管理番号：
+		<input type="hidden" th:field="*{introduction_id}" >
+	</div>
+	
+	<div>
+		名前：
+		<input type="hidden" th:field="*{name}" >
+	</div>
+	
+	<div>
+		フリガナ：
+		<input type="hidden" th:field="*{kana}" >
+	</div>
+	
+	<div>
+		性別：
+		<input type="hidden" th:field="*{gender}" >
+	</div>
+	
+	<div>
+		趣味：
+		<input type="hidden" th:field="*{hobby}" >
+	</div>
+	
+	<div>
+		一言：
+		<input type="hidden" th:field="*{word}" >
+	</div>
+	
+	<div>
+		自己紹介の内容を変更するには登録内容一覧画面から編集をして頂くか、管理者へお問い合わせください。
+	</div>
+	
+	<div><a th:href="@{/home}">TOPへ戻る</a></div>
+	</form>
 </body>
 
 </html>

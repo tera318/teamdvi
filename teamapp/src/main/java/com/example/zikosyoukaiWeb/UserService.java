@@ -48,7 +48,7 @@ public class UserService {
 		List<Users> usersList = usersmapper.selectByExample(usersExample);
 
 		if (usersList.isEmpty()) {
-			System.out.println("ユーザーIDが見つかりません。");
+			System.err.println("ユーザーIDが見つかりません。");
 			return false; // ユーザーが存在しない
 		}
 

@@ -1,6 +1,7 @@
 package com.example.zikosyoukaiWeb;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,17 @@ public class IntroductionsService {
 
 		System.out.println("データを登録しました。");
 		introductionsmapper.insert(introductions);
+	}
+
+	public List<Introductions> introductions_date() {
+		//		introductionExample.createCriteria().andIntroduction_idIsNotNull();
+		//		introductionExample.createCriteria().andNameIsNotNull();
+		List<Introductions> introductionsList = introductionsmapper.selectAll();
+
+		System.out.println("取得件数: " + introductionsList.size());
+
+		return introductionsList;
+
 	}
 
 }

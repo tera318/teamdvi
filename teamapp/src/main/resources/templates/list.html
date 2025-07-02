@@ -8,20 +8,22 @@
 
 <body>
 	<h1>自己紹介登録者一覧</h1>
-
+	
+	<form th:action="@{/introductions/list}" method="post">
+		
 	<table>
 		<tr>
 			<th>ID</th>
 			<th>名前</th>
 		</tr>
-
-		<tr>
-			<td><a href="/introductions/detail">???</td>
-			<td>!!!</td>
+		
+		<tr th:each="introduction : ${introductionsList}">
+			<td th:text="${introduction.introduction_id}"></td>
+			<td th:text="${introduction.name}"></td>
 		</tr>
-	</table>
-	
-	<p><a href="/home">TOPへ戻る</a></p>
+</table>
+	</form>
+	<p><a th:href="@{/home}">TOPへ戻る</a></p>
 </body>
 
 </html>

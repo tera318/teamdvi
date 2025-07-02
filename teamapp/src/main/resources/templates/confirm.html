@@ -21,24 +21,24 @@
 			<td>フリガナ</td>
 			<td><input type="hidden" th:field="*{kana}"></td>
 			</tr>
-<!--			<tr>-->
-<!--				<td>性別</td>-->
-<!--				<td><input type="hidden" th:field="*{gender}"></td>-->
-<!--				</tr>-->
-<!--			<tr>-->
-<!--				<td>趣味</td>-->
-<!--				<td><input type="hidden" th:field="*{hobby}"></td>-->
-<!--			</tr>-->
+			<tr>
+				<td>性別</td>
+				<td><input type="hidden" th:field="*{gender}"></td>
+				</tr>
+			<tr>
+				<td>趣味</td>
+				<td><input type="hidden" th:field="*{hobby}"></td>
+			</tr>
 			
 			<tr>
 				<td>一言</td>
 				<td><input type="hidden" th:field="*{word}"></td>
 			</tr>
-
 		</table>
-			</form>
-	<p><a th:href="@{/introductions}"><button type="submit">戻る</button></a>
-		<a th:href="@{/introductions/finish}"><button type="submit">完了</button></a>
+		
+	<p><a th:href="@{/introductions}"><button type="button">戻る</button></a>
+		<button type="submit">完了</button>
 	</p>
+	</form>
 
 </body>
