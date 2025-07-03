@@ -7,10 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-
 public class IntroductionsForm {
 
-	private String introduction_id;
+	private Integer introduction_id;
 
 	private String user_id;
 
@@ -26,8 +25,12 @@ public class IntroductionsForm {
 
 	private String word;
 
-	private Integer created_at;
+	private Date created_at;
 
 	private Date updated_at;
+
+	public void setIntroduction_id(int id) {
+		this.introduction_id = Integer.valueOf(id);
+	}
 
 }

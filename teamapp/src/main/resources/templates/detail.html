@@ -3,31 +3,40 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>自己紹介詳細</title>
 </head>
 
 <body>
-
-	<h1>自己紹介</h1>
-<form th:action="@{/introductions/detail}" th:object="${introductions}" method="post">
+	<h1>自己紹介詳細</h1>
 	<table>
-<!--		<tr th:each="user : ${introductions}">-->
-		<tr th:text="*{introductions_id}">管理番号</tr>
-		<tr th:text="*{name}">名前</tr>
-		<tr th:text="*{kana}">フリガナ</tr>
-		<tr th:text="*{gender}">性別</tr>
-		<tr th:text="*{hobby}">趣味</tr>
-		<tr th:text="*{word}">一言</tr>
-		</tr>
-		
+	    <tr><th>管理番号</th><td th:text="${introduction.introduction_id}"></td></tr>
+	    <tr><th>名前</th><td th:text="${introduction.name}"></td></tr>
+	    <tr><th>フリガナ</th><td th:text="${introduction.kana}"></td></tr>
+	    <tr><th>性別</th><td th:text="${introduction.gender}"></td></tr>
+	    <tr><th>趣味</th><td th:text="${introduction.hobby}"></td></tr>
+	    <tr><th>一言</th><td th:text="${introduction.word}"></td></tr>
 	</table>
 
+	<!-- 詳細画面のボタンたち -->
 	<p>
-		<a th:href="/introductions/list"><button type="button">戻る</button></a>
-		<button type="submit">編集</button>
-		<button type="button">削除</button>
-	</p>
-</form>
+	    <a th:href="@{/introductions/list}"><button type="button">戻る</button></a>
+	    
+		<a th:href="@{'/introductions/edit/' + ${introduction.introduction_id}}"><button type="button">編集</button></a>
+		
+		<button type="button" th:attr="data-id=${introduction.introduction_id}" onclick="confirmDelete(this)">削除</button>
+
+		<script>
+		    function confirmDelete(button) {
+		        const id = button.getAttribute("data-id");
+		        if (confirm("本当に削除しますか？")) {
+		            window.location.href = "/introductions/delete/" + id;
+		        }
+		    }
+		</script>
+
+
+		</p>
+
 </body>
 
 </html>

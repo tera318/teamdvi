@@ -12,44 +12,20 @@
 	<h1>自己紹介の登録が完了しました！</h1>
 	
 	<h2>下記内容の自己紹介の登録が完了しました！</h2>
-	<form th:action="@{/introductions/finish}" th:object="${introductionsform}" method="post">
 		
-	<div>
-		管理番号：
-		<input type="hidden" th:field="*{introduction_id}" >
-	</div>
+	<table>
+		<tr><th>管理番号:</th><td th:text="${introductionsform.introduction_id}"></td></tr>
+		<tr><th>名前:</th><td th:text="${introductionsform.name}"></td></tr>
+		<tr><th>フリガナ:</th><td th:text="${introductionsform.kana}"></td></tr>
+		<tr><th>性別:</th><td th:text="${introductionsform.gender}"></td></tr>
+		<tr><th>趣味:</th><td th:text="${introductionsform.hobby}"></td></tr>
+		<tr><th>一言:</th><td th:text="${introductionsform.word}"></td></tr>
+		
+		</table>
+	<div>自己紹介の内容を変更するには登録内容一覧画面から編集をして頂くか、管理者へお問い合わせください。</div>
 	
-	<div>
-		名前：
-		<input type="hidden" th:field="*{name}" >
-	</div>
-	
-	<div>
-		フリガナ：
-		<input type="hidden" th:field="*{kana}" >
-	</div>
-	
-	<div>
-		性別：
-		<input type="hidden" th:field="*{gender}" >
-	</div>
-	
-	<div>
-		趣味：
-		<input type="hidden" th:field="*{hobby}" >
-	</div>
-	
-	<div>
-		一言：
-		<input type="hidden" th:field="*{word}" >
-	</div>
-	
-	<div>
-		自己紹介の内容を変更するには登録内容一覧画面から編集をして頂くか、管理者へお問い合わせください。
-	</div>
-	
-	<div><a th:href="@{/home}">TOPへ戻る</a></div>
-	</form>
+	<p><a th:href="@{/home}">TOPへ戻る</a></p>
+
 </body>
 
 </html>

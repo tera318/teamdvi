@@ -7,7 +7,7 @@
 <body>
     <h1>ログイン</h1>
 
-    <form action="#" th:action="@{/home/login}" th:object="${userform}" method="post">
+    <form th:action="@{/home/login}" th:object="${userform}" method="post">
         <div>
             <label for="id">UserID</label>
             <input type="text" id="id" th:field="*{id}">

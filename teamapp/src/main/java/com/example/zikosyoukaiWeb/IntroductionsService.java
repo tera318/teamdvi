@@ -15,37 +15,54 @@ import com.example.zikosyoukaiWeb.dao.mapper.IntroductionsMapper;
 public class IntroductionsService {
 
 	@Autowired
-	IntroductionsMapper introductionsmapper;
+	private IntroductionsMapper introductionsmapper;
 
-	//	public List<Introductions> selectByExample() {
-	//		IntroductionsExample introductionsExample = new IntroductionsExample();
-	//		return introductionsmapper.selectByExample(introductionsExample);
-	//	}
-
-	public void insert(IntroductionsForm introductionsform) {
-
-		Introductions introductions = new Introductions();
-
-		introductions.setName(introductionsform.getName());
-		introductions.setKana(introductionsform.getKana());
-		introductions.setGender(introductionsform.getGender());
-		introductions.setHobby(introductionsform.getHobby());
-		introductions.setWord(introductionsform.getWord());
-		introductions.setCreated_at(new Date(System.currentTimeMillis()));
-
-		System.out.println("データを登録しました。");
-		introductionsmapper.insert(introductions);
+	/** 新規登録処理 */
+	public void insert(IntroductionsForm form) {
+		Introductions entity = convertFormToEntity(form);
+		entity.setCreated_at(new Date());
+		introductionsmapper.insert(entity);
 	}
 
+	/** 一覧取得 */
 	public List<Introductions> introductions_date() {
-		//		introductionExample.createCriteria().andIntroduction_idIsNotNull();
-		//		introductionExample.createCriteria().andNameIsNotNull();
-		List<Introductions> introductionsList = introductionsmapper.selectAll();
-
-		System.out.println("取得件数: " + introductionsList.size());
-
-		return introductionsList;
-
+		return introductionsmapper.selectAll();
 	}
 
+	/** IDで1件取得 */
+	public Introductions findById(int id) {
+		return introductionsmapper.findById(id);
+	}
+
+	/** 更新処理 */
+	public void update(IntroductionsForm form) {
+		Introductions entity = convertFormToEntity(form);
+		entity.setIntroduction_id((form.getIntroduction_id()));
+		entity.setUpdated_at(new Date());
+		introductionsmapper.updateByPrimaryKeySelective(entity);
+	}
+
+	/** 削除処理 */
+	public void delete(int id) {
+		introductionsmapper.delete(id);
+	}
+
+	/** フォーム → エンティティ変換 */
+	private Introductions convertFormToEntity(IntroductionsForm form) {
+		Introductions entity = new Introductions();
+
+		if (form.getIntroduction_id() != null) {
+			entity.setIntroduction_id(form.getIntroduction_id());
+		}
+
+		entity.setName(form.getName());
+		entity.setKana(form.getKana());
+		entity.setGender(form.getGender());
+
+		entity.setHobby(String.join(",", form.getHobby())); // hobby
+
+		entity.setWord(form.getWord());
+		introductionsmapper.insert(entity);
+		return entity;
+	}
 }

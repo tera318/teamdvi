@@ -2,87 +2,77 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>入力画面</title>
+    <meta charset="UTF-8">
+    <title>入力画面</title>
 </head>
 
 <body>
 
-	<h2>自己紹介の内容を記入して下さい</h2>
+    <h2>自己紹介の内容を記入して下さい</h2>
 
-	<form th:action="@{/introductions}" th:object="${introductionsform}" method="post">
-	<table>
-		<tr>
-			<th>名前</th>
-			<td>必須</td>
-			<td><input type="text" th:field="*{name}"></td>
-		</tr>
+    <form th:action="@{/introductions/confirm}" th:object="${introductionsform}" method="post">
 
-		<tr>
-			<th>フリガナ</th>
-			<td>必須</td>
-			<td><input type="text" th:field="*{kana}"></td>
-		</tr>
+        <!-- 編集時のみ ID を渡す -->
+        <input type="hidden" th:if="*{introduction_id != null}" th:field="*{introduction_id}" />
 
-		<tr>
-			<th>性別</th>
-			<td></td>
-			<td>
-				<input type="radio" id="gender1" name="gender" th:field="*{gender}" value="男性">
-				<label for="gender1">男性</label>
-			</td>
-			<td>
-				<input type="radio" id="gender2" name="gender" th:field="*{gender}" value="女性">
-				<label for="gender2">女性</label>
-			</td>
-		</tr>
+        <table>
+            <tr>
+                <th>名前</th>
+                <td>必須</td>
+                <td><input type="text" th:field="*{name}" /></td>
+            </tr>
 
-		<tr>
-			<th>趣味</th>
-			<td>必須</td>
-			<td>
-				<input type="checkbox" id="1" name="1" th:field="*{hobby}" value="趣味1">
-				<label for="1">趣味1</label>
-			</td>
+            <tr>
+                <th>フリガナ</th>
+                <td>必須</td>
+                <td><input type="text" th:field="*{kana}" /></td>
+            </tr>
 
-			<td>
-				<input type="checkbox" id="2" name="2" th:field="*{hobby}" value="趣味2">
-				<label for="2">趣味2</label>
-			</td>
+            <tr>
+                <th>性別</th>
+                <td colspan="2">
+                    <input type="radio" id="gender1" th:field="*{gender}" value="男性" />
+                    <label for="gender1">男性</label>
+                    <input type="radio" id="gender2" th:field="*{gender}" value="女性" />
+                    <label for="gender2">女性</label>
+                </td>
+            </tr>
 
-			<td>
-				<input type="checkbox" id="3" name="3" th:field="*{hobby}" value="趣味3">
-				<label for="3">趣味3</label>
-			</td>
+            <tr>
+                <th>趣味</th>
+                <td colspan="2">
+                    <input type="checkbox" id="hobby1" th:field="*{hobby}" value="趣味1" />
+                    <label for="hobby1">趣味1</label>
 
-			<td>
-				<input type="checkbox" id="4" name="4" th:field="*{hobby}" value="趣味4">
-				<label for="4">趣味4</label>
-			</td>
+                    <input type="checkbox" id="hobby2" th:field="*{hobby}" value="趣味2" />
+                    <label for="hobby2">趣味2</label>
 
-			<td>
-				<input type="checkbox" id="5" name="5" th:field="*{hobby}" value="趣味5">
-				<label for="5">趣味5</label>
-			</td>
+                    <input type="checkbox" id="hobby3" th:field="*{hobby}" value="趣味3" />
+                    <label for="hobby3">趣味3</label>
 
-			<td>
-				<input type="checkbox" id="6" name="6" th:field="*{hobby}" value="趣味6">
-				<label for="6">趣味6</label>
-			</td>
-		</tr>
+                    <input type="checkbox" id="hobby4" th:field="*{hobby}" value="趣味4" />
+                    <label for="hobby4">趣味4</label>
 
-		<tr>
-			<th>一言</th>
-			<td></td>
-			<td><input type="text"  th:field="*{word}"></td>
-		</tr>
+                    <input type="checkbox" id="hobby5" th:field="*{hobby}" value="趣味5" />
+                    <label for="hobby5">趣味5</label>
 
-	</table>
+                    <input type="checkbox" id="hobby6" th:field="*{hobby}" value="趣味6" />
+                    <label for="hobby6">趣味6</label>
+                </td>
+            </tr>
 
-	<p><a th:href="@{/home}"><button type="button">戻る</button></a>
-		<button type="submit">次へ</button>
-	</p>
-	</form>
+            <tr>
+                <th>一言</th>
+                <td colspan="2"><input type="text" th:field="*{word}" /></td>
+            </tr>
+        </table>
+
+        <p>
+            <button type="button" onclick="location.href='/home'">戻る</button>
+            <button type="submit">次へ</button>
+        </p>
+
+    </form>
 </body>
 
-</htm>
+</html>

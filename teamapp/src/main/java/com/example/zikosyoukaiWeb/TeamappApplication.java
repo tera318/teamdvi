@@ -10,9 +10,5 @@ public class TeamappApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TeamappApplication.class, args);
-
-		//		ToppageController toppageController;
-		//		IntroductionsController introductioncsontroller;
-
 	}
 }

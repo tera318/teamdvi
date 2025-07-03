@@ -3,14 +3,12 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>自己紹介登録者一覧</title>
 </head>
 
 <body>
 	<h1>自己紹介登録者一覧</h1>
-	
-	<form th:action="@{/introductions/list}" method="post">
-		
+			
 	<table>
 		<tr>
 			<th>ID</th>
@@ -18,7 +16,11 @@
 		</tr>
 		
 		<tr th:each="introduction : ${introductionsList}">
-			<td th:text="${introduction.introduction_id}"></td>
+		    <td>
+		        <a th:href="@{'/introductions/detail/' + ${introduction.introduction_id}}">
+		            <span th:text="${introduction.introduction_id}"></span>
+		        </a>
+		    </td>
 			<td th:text="${introduction.name}"></td>
 		</tr>
 </table>
